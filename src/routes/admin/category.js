@@ -16,4 +16,5 @@ router.post('/edit/remove/:id', control.removeCategory);
 router.post('/editCat/:id', control.postEditCategory);
 router.get('/:id', control.getCategoryDetails);
 
+
 module.exports = router;

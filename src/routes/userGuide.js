@@ -8,3 +8,4 @@ var control = require('../controllers/userGuide');
 router.get('/', control.getUserGuide);
 
 module.exports = router;
+

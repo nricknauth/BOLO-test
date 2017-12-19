@@ -124,20 +124,6 @@ function saveUserGuideSection(section, steps) {
     });
 }
 
-var aboutUs_R = new UserGuide({
-  title: "About Us",
-  content: "{\"ops\":[{\"attributes\":{\"bold\":true},\"insert\":\"About Us\"},{\"attributes\":{\"align\":\"center\",\"header\":1},\"insert\":\"\\n\"}]}",
-  ROOT: false,
-  ADMINISTRATOR: false,
-  SUPERVISOR: false,
-  OFFICER: false
-})
-
-var aboutUsSteps_R = `
-  To edit the actual about us page, please click on the "Edit About Us" link
-  located in the Admin Panel.
-`;
-
 var agencyManagement_R = new UserGuide({
     title: 'Agency Management',
     OFFICER: false,
@@ -468,7 +454,6 @@ var resetPWSteps =
     "5) Enter confirmation password\n" +
     "6) Click 'Submit'";
 
-saveUserGuideSection(aboutUs_R, aboutUsSteps_R);
 saveUserGuideSection(agencyManagement_R, agencyManagementSteps_R);
 saveUserGuideSection(agencyManagement_A, agencyManagementSteps_A);
 saveUserGuideSection(dataAnalysis, dataAnalysisSteps);
@@ -488,170 +473,167 @@ saveUserGuideSection(agencyDirectory, agencyDirectorySteps);
 saveUserGuideSection(searchBOLO, searchBOLOSteps);
 saveUserGuideSection(notifications, notificationsSteps);
 saveUserGuideSection(resetPW, resetPWSteps);
-
-setTimeout(function() {
-  fs.writeFile('../src/public/UserGuide/UserGuideTitle.md', config.title, function(err) {
-    if (err) {
-      process.exit(j++);
-    } else {
-      //Root User Guide
-      UserGuide.findRootUserGuideSections(function(err, sections) {
+ 
+setTimeout(function () {
+     fs.writeFile('../src/public/UserGuide/UserGuideTitle.md', config.title, function (err) {
         if (err) {
-          console.log('Could not find any sections of the user guide accessible to root users: ' + err);
-          process.exit(j++);
+            process.exit(j++);
         } else {
-          var files = [];
-          files.push('../src/public/UserGuide/UserGuideTitle.md'); //User Guide title
-          for (var i in sections) {
-            files.push('../src/public/UserGuide/' + sections[i].id + '.md');
-          }
-          readMultipleFiles(files, 'utf8', function(err, contents) {
-            if (err) {
-              console.log('Could not read the following files: ' + files.toString());
-              console.log(err);
-              process.exit(j++);
-            } else {
-              var data = [];
-              var j = 0;
-              for (var i in contents) {
-                if (i == 0)
-                  data[j++] = '#' + contents[i]; //User guide title
-                else {
-                  data[j++] = '###<b>' + sections[i - 1].title + '</b>'; //section title
-                  data[j++] = '<pre><code>' + contents[i] + '</pre></code>'; //instructions
-                }
-              }
-              fs.writeFile('../src/public/UserGuide/Root.md', data.join('\n\n'), function(err) {
+            //Root User Guide
+            UserGuide.findRootUserGuideSections(function (err, sections) {
                 if (err) {
-                  console.log('Could not update the Root User Guide');
-                  process.exit(j++);
+                    console.log('Could not find any sections of the user guide accessible to root users: ' + err);
+                    process.exit(j++);
                 } else {
-                  console.log('Root User Guide successfully created');
-                  //Supervisor User Guide
-                  UserGuide.findSupervisorUserGuideSections(function(err, sections) {
-                    if (err) {
-                      console.log('Could not find any sections of the user guide accessible to supervisor users: ' + err);
-                      process.exit(j++);
-                    } else {
-                      var files = [];
-                      files.push('../src/public/UserGuide/UserGuideTitle.md'); //User Guide title
-                      for (var i in sections) {
+                    var files = [];
+                    files.push('../src/public/UserGuide/UserGuideTitle.md'); //User Guide title
+                    for (var i in sections) {
                         files.push('../src/public/UserGuide/' + sections[i].id + '.md');
-                      }
-                      readMultipleFiles(files, 'utf8', function(err, contents) {
-                        if (err) {
-                          console.log('Could not read the following files: ' + files.toString());
-                          console.log(err);
-                          process.exit(j++);
-                        } else {
-                          var data = [];
-                          var j = 0;
-                          for (var i in contents) {
-                            if (i == 0)
-                              data[j++] = '#' + contents[i]; //User guide title
-                            else {
-                              data[j++] = '###<b>' + sections[i - 1].title + '</b>'; //section title
-                              data[j++] = '<pre><code>' + contents[i] + '</pre></code>'; //instructions
-                            }
-                          }
-                          fs.writeFile('../src/public/UserGuide/Supervisor.md', data.join('\n\n'), function(err) {
-                            if (err) {
-                              console.log('Could not update the Supervisor User Guide');
-                              process.exit(j++);
-                            } else {
-                              console.log('Supervisor User Guide successfully created');
-                              //Administrator User Guide
-                              UserGuide.findAdministratorUserGuideSections(function(err, sections) {
-                                if (err) {
-                                  console.log('Could not find any sections of the user guide accessible to administrator users: ' + err);
-                                  process.exit(j++);
-                                } else {
-                                  var files = [];
-                                  files.push('../src/public/UserGuide/UserGuideTitle.md'); //User Guide title
-                                  for (var i in sections) {
-                                    files.push('../src/public/UserGuide/' + sections[i].id + '.md');
-                                  }
-                                  readMultipleFiles(files, 'utf8', function(err, contents) {
-                                    if (err) {
-                                      console.log('Could not read the following files: ' + files.toString());
-                                      console.log(err);
-                                      process.exit(j++);
-                                    } else {
-                                      var data = [];
-                                      var j = 0;
-                                      for (var i in contents) {
-                                        if (i == 0)
-                                          data[j++] = '#' + contents[i]; //User guide title
-                                        else {
-                                          data[j++] = '###<b>' + sections[i - 1].title + '</b>'; //section title
-                                          data[j++] = '<pre><code>' + contents[i] + '</pre></code>'; //instructions
-                                        }
-                                      }
-                                      fs.writeFile('../src/public/UserGuide/Administrator.md', data.join('\n\n'), function(err) {
-                                        if (err) {
-                                          console.log('Could not update the Administrator User Guide');
-                                          process.exit(j++);
-                                        } else {
-                                          console.log('Administrator User Guide successfully created');
-                                          //Officer User Guide
-                                          UserGuide.findOfficerUserGuideSections(function(err, sections) {
-                                            if (err) {
-                                              console.log('Could not find any sections of the user guide accessible to officer users: ' + err);
-                                              process.exit(j++);
-                                            } else {
-                                              var files = [];
-                                              files.push('../src/public/UserGuide/UserGuideTitle.md'); //User Guide title
-                                              for (var i in sections) {
-                                                files.push('../src/public/UserGuide/' + sections[i].id + '.md');
-                                              }
-                                              readMultipleFiles(files, 'utf8', function(err, contents) {
-                                                if (err) {
-                                                  console.log('Could not read the following files: ' + files.toString());
-                                                  console.log(err);
-                                                  process.exit(j++);
-                                                } else {
-                                                  var data = [];
-                                                  var j = 0;
-                                                  for (var i in contents) {
-                                                    if (i == 0)
-                                                      data[j++] = '#' + contents[i]; //User guide title
-                                                    else {
-                                                      data[j++] = '###<b>' + sections[i - 1].title + '</b>'; //section title
-                                                      data[j++] = '<pre><code>' + contents[i] + '</pre></code>'; //instructions
-                                                    }
-                                                  }
-                                                  fs.writeFile('../src/public/UserGuide/Officer.md', data.join('\n\n'), function(err) {
-                                                    if (err) {
-                                                      console.log('Could not update the Officer User Guide');
-                                                      process.exit(j++);
-                                                    } else {
-                                                      console.log('Officer User Guide successfully created');
-                                                      process.exit(0);
-                                                    }
-                                                  });
-                                                }
-                                              });
-                                            }
-                                          });
-                                        }
-
-                                      });
-                                    }
-                                  });
-                                }
-                              });
-                            }
-                          });
-                        }
-                      });
                     }
-                  });
+                    readMultipleFiles(files, 'utf8', function (err, contents) {
+                        if (err) {
+                            console.log('Could not read the following files: ' + files.toString());
+                            console.log(err);
+                            process.exit(j++);
+                        } else {
+                            var data = [];
+                            var j = 0;
+                            for (var i in contents) {
+                                if (i == 0) data[j++] = '#' + contents[i]; //User guide title
+                                else {
+                                    data[j++] = '###<b>' + sections[i - 1].title + '</b>'; //section title
+                                    data[j++] = '<pre><code>' + contents[i] + '</pre></code>'; //instructions
+                                }
+                            }
+                            fs.writeFile('../src/public/UserGuide/Root.md', data.join('\n\n'), function (err) {
+                                if (err) {
+                                    console.log('Could not update the Root User Guide');
+                                    process.exit(j++);
+                                } else {
+                                    console.log('Root User Guide successfully created');
+                                    //Supervisor User Guide
+                                    UserGuide.findSupervisorUserGuideSections(function (err, sections) {
+                                        if (err) {
+                                            console.log('Could not find any sections of the user guide accessible to supervisor users: ' + err);
+                                            process.exit(j++);
+                                        } else {
+                                            var files = [];
+                                            files.push('../src/public/UserGuide/UserGuideTitle.md'); //User Guide title
+                                            for (var i in sections) {
+                                                files.push('../src/public/UserGuide/' + sections[i].id + '.md');
+                                            }
+                                            readMultipleFiles(files, 'utf8', function (err, contents) {
+                                                if (err) {
+                                                    console.log('Could not read the following files: ' + files.toString());
+                                                    console.log(err);
+                                                    process.exit(j++);
+                                                } else {
+                                                    var data = [];
+                                                    var j = 0;
+                                                    for (var i in contents) {
+                                                        if (i == 0) data[j++] = '#' + contents[i]; //User guide title
+                                                        else {
+                                                            data[j++] = '###<b>' + sections[i - 1].title + '</b>'; //section title
+                                                            data[j++] = '<pre><code>' + contents[i] + '</pre></code>'; //instructions
+                                                        }
+                                                    }
+                                                    fs.writeFile('../src/public/UserGuide/Supervisor.md', data.join('\n\n'), function (err) {
+                                                        if (err) {
+                                                            console.log('Could not update the Supervisor User Guide');
+                                                            process.exit(j++);
+                                                        } else {
+                                                            console.log('Supervisor User Guide successfully created');
+                                                            //Administrator User Guide
+                                                            UserGuide.findAdministratorUserGuideSections(function (err, sections) {
+                                                                if (err) {
+                                                                    console.log('Could not find any sections of the user guide accessible to administrator users: ' + err);
+                                                                    process.exit(j++);
+                                                                } else {
+                                                                    var files = [];
+                                                                    files.push('../src/public/UserGuide/UserGuideTitle.md'); //User Guide title
+                                                                    for (var i in sections) {
+                                                                        files.push('../src/public/UserGuide/' + sections[i].id + '.md');
+                                                                    }
+                                                                    readMultipleFiles(files, 'utf8', function (err, contents) {
+                                                                        if (err) {
+                                                                            console.log('Could not read the following files: ' + files.toString());
+                                                                            console.log(err);
+                                                                            process.exit(j++);
+                                                                        } else {
+                                                                            var data = [];
+                                                                            var j = 0;
+                                                                            for (var i in contents) {
+                                                                                if (i == 0) data[j++] = '#' + contents[i]; //User guide title
+
+                                                                                else {
+                                                                                    data[j++] = '###<b>' + sections[i - 1].title + '</b>'; //section title
+                                                                                    data[j++] = '<pre><code>' + contents[i] + '</pre></code>'; //instructions
+                                                                                }
+                                                                            }
+                                                                            fs.writeFile('../src/public/UserGuide/Administrator.md', data.join('\n\n'), function (err) {
+                                                                                if (err) {
+                                                                                    console.log('Could not update the Administrator User Guide');
+                                                                                    process.exit(j++);
+                                                                                } else {
+                                                                                    console.log('Administrator User Guide successfully created');
+                                                                                    //Officer User Guide
+                                                                                    UserGuide.findOfficerUserGuideSections(function (err, sections) {
+                                                                                        if (err) {
+                                                                                            console.log('Could not find any sections of the user guide accessible to officer users: ' + err);
+                                                                                            process.exit(j++);
+                                                                                        } else {
+                                                                                            var files = [];
+                                                                                            files.push('../src/public/UserGuide/UserGuideTitle.md'); //User Guide title                                                                                     
+                                                                                            for (var i in sections) {
+                                                                                                files.push('../src/public/UserGuide/' + sections[i].id + '.md');
+                                                                                            }
+                                                                                            readMultipleFiles(files, 'utf8', function (err, contents) {
+                                                                                                if (err) {
+                                                                                                    console.log('Could not read the following files: ' + files.toString());
+                                                                                                    console.log(err);
+                                                                                                    process.exit(j++);
+                                                                                                } else {
+                                                                                                    var data = [];
+                                                                                                    var j = 0;
+                                                                                                    for (var i in contents) {
+                                                                                                        if (i == 0) data[j++] = '#' + contents[i]; //User guide title
+                                                                                                        else {
+                                                                                                            data[j++] = '###<b>' + sections[i - 1].title + '</b>'; //section title
+                                                                                                            data[j++] = '<pre><code>' + contents[i] + '</pre></code>'; //instructions
+                                                                                                        }
+                                                                                                    }
+                                                                                                    fs.writeFile('../src/public/UserGuide/Officer.md', data.join('\n\n'), function (err) {
+                                                                                                        if (err) {
+                                                                                                            console.log('Could not update the Officer User Guide');
+                                                                                                            process.exit(j++); 
+                                                                                                        } else {
+                                                                                                            console.log('Officer User Guide successfully created');
+                                                                                                            process.exit(0); 
+                                                                                                        }
+                                                                                                    });
+                                                                                                }
+                                                                                            });
+                                                                                        }
+                                                                                    });
+                                                                                }
+
+                                                                            });
+                                                                        }
+                                                                    });
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
                 }
-              });
-            }
-          });
+            });
         }
-      });
-    }
-  });
+    });
 }, 10000);

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Installation Setup</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="jumbotron">
+        <h1>Installation Tutorial</h1>
+        <p>Helping you get ready to run BOLO on your local machine</p>
+      </div>
+        <div>
+          <h3>After using the BOLO Installation Package you should have all the necessary programs and depedencies. The only thing left to do is:</h3>
+          <div>
+            <br>
+            <h4>1. Update environment file:</h4>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;There should be a ".env.example" file in your BOLO 9.0 folder (If not just create a file called ".env").
+            <br>
+            <img src="image/folder.png" class="img-rounded" alt="folder">
+            <br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Open the file. Once the file is open it should appear like this:
+            <br>
+            <img src="image/example_env.png" class="img-rounded" alt=".env.example">
+            <br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Edit your ".env.example" file so it can look like this:
+            <br>
+            <img src="image/_env.png" class="img-rounded" alt=".env">
+            <br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Most of the attributes in the file are not that important to look at, except for the SENDGRID KEY. You may have to change the key, since the Pinecrest Police Department is paying for it. You will probably have to go start a trial version of a Sendgrid account to get another key. Ask the project owner (Jason Cohen or Frank Alvarado) for help.
+            <br>
+            <br>
+            <h4>2. Initializing the database: </h4>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Go to your MongoDB directory in your Program Files(or wherever it is downloaded) and run "mongod.exe"
+            <br>
+            <img src="image/mongo.png" class="img-rounded" alt="mongod">
+            <img src="image/mongod.png" class="img-rounded" alt="mongod">
+            <br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;After that go to the "scripts" directory in your BOLO 9.0 folder and run a command shell inside the "scripts" folder. Once the command shell is open, run the command "node init-db.js"
+            <br>
+            <img src="image/folder2.png" class="img-rounded" alt="scripits folder">
+            <img src="image/initdb.png" class="img-rounded" alt="init db command">
+            <br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;Once that is done, you have successfully finish initializing your database
+            <br>
+            <br>
+            <br>
+          </div>
+          <h3>If you wish to do a manual installation:</h3>
+          <div>
+            <h4> &nbsp;&nbsp;&nbsp;&nbsp;You have to download two main programs, <a href="https://nodejs.org/en/">NodeJS</a> and <a href="https://www.mongodb.com/">MongoDB</a>. After you have those two programs installed, you can go get the source code of BOLO 9.0 from Github (which the senior project professor should give you access). Once you have the source code, direct yourself to the main directory of the code and open a command shell there. Then run the command "npm installs" to download all dependecies. Once these are done, you can continue from top to finally start running the application. If you wish to gain more help, you can look at past versions Installation Videos for help. Here is an example "https://youtu.be/rPFtNXbV6Jg/".</h4>
+            <br>
+            <br>
+            <h4> &nbsp;&nbsp;&nbsp;&nbsp;If you wish to edit the Installion Package you can download <a href="http://www.jrsoftware.org/isdl.php">Inno Setup</a>. You can find some help with the code <a href="http://www.jrsoftware.org/ishelp/">here</a>.</h4>
+            <br>
+            <img src="image/innodl.png" class="img-rounded" alt="Inno Setup">
+            <br>
+            <img src="image/innosetup.png" class="img-rounded" alt="Inno Help Page">
+          </div>
+          <br>
+          <br>
+          <br>
+          <br>
+      </div>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+      <div class="container-fluid">
+        <footer>
+          <div class="footer-copyright">
+            <div class="container-fluid">
+              <br>
+              <center> © 2017 BOLO Flier Creator Created by School of Computing and Information Sciences @ <a href="http://www.cis.fiu.edu/seniorproject/" )>FIU</a></center>
+              <br>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </nav>
+  </body>
+</html>

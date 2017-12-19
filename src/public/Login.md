@@ -1,3 +1,4 @@
-<img src="/img/login-image" alt="BOLO Logo" class="img-responsive" id="login-image-preview" style="margin:0 auto"/>
-#BOLO App
-###Bolo Flier Creator               
+<img src="/img/chiefsofpolice.png" alt="BOLO Logo"style="height:220px;"/>
+#BOLO Flier Creator
+###Situational Awareness Multi-Jurisdictional Resource
+               

@@ -1,5 +1,7 @@
 # Dependency directories
 node_modules/
 jspm_packages/
-.eslintrc
+
+
+# dotenv environment variables file
 .env

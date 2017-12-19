@@ -7,12 +7,7 @@ var control = require('../../controllers/admin/user.js');
 
 var multer = require('multer');
 var upload = multer({dest: './uploads/'});
-var csv = upload.fields([
-  {
-    name: 'csvfile',
-    maxCount: 1
-  }
-]);
+var csv = upload.fields([{name: 'csvfile', maxCount: 1}]);
 
 router.get('/', control.getList);
 router.get('/sorted/:id', control.getSortedList);
@@ -28,5 +23,8 @@ router.post('/delete/:id', control.postDeleteUser);
 router.post('/activation/:id', control.activationUser);
 router.get('/resetPassword/:id', control.getPasswordReset);
 router.post('/resetPassword/:id', control.postPasswordReset);
+router.get('/card/:id', control.getBingoCard);
+router.get('/resetCard/:id', control.getCardReset);
+router.post('/resetCard/:id', control.postCardReset);
 
 module.exports = router;

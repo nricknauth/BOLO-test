@@ -12,9 +12,15 @@ block content
         form#login(action="/bingo" method="post")
             h2 Grid Card Login
                h5 Please input the values from your Grid Card corresponding to the section given:
-               -var sec1 = check_test()
-               -var sec2 = check_test()
-               -var sec3 = check_test()
+               -var sec1 = check_test();
+               -var sec2 = check_test();
+               -var sec3 = check_test();
+               while sec1 == sec2
+                  - var sec1 = check_test();
+               while sec1 == sec3
+                  - var sec1 = check_test();
+               while sec3 == sec2
+                  - var sec3 = check_test();
                .form-group.row
                  .col-xs-1
                    +input_text("value1", sec1, "", true, "", "text")
